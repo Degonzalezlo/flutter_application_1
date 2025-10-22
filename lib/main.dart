@@ -15,6 +15,20 @@ final ThemeData myTheme = ThemeData(
     backgroundColor: Colors.teal, // Color de AppBar teal
     foregroundColor: Colors.white, // Título de AppBar blanco
   ),
+
+
+// == PERSONALIZACION GLOBAL DE BOTONES ==
+elevatedButtonTheme:ElevatedButtonThemeData (
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.teal.shade700,// Fondo teal
+    foregroundColor: Colors.white, // Texto blanco
+    textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+  ),
+),
 );
 
 class MyApp extends StatelessWidget {
@@ -65,8 +79,26 @@ class _FirstScreenState extends State<FirstScreen> {
           children: [
             TextField(
               controller: _controller, // 3. Asignación: Conecta el Controller al TextField.
-              decoration: const InputDecoration(labelText: 'Ingresa texto aquí'),
+              decoration: InputDecoration(
+                labelText: 'Ingresa texto aquí',
+                hintText: 'Escribe algo...',
+                border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  color: Colors.teal.shade300,
+                  width: 2,
+                )
+              ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(
+                    color: Colors.pink,
+                    width: 3,
+                  ),
+                ),
+              ),
             ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -77,7 +109,9 @@ class _FirstScreenState extends State<FirstScreen> {
               child: const Text('Mostrar Texto'),
             ),
             const SizedBox(height: 20),
-            Text('Texto ingresado: $displayedText'),
+            Text('Texto ingresado: $displayedText',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
             const Spacer(),
             ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/second'),
